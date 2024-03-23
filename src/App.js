@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+import "./styles.css";
+import { useNLP } from "./usenlp";
 
-function App() {
+export default function App() {
+  const { respon, message, setMessage } = useNLP();
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <input
+          type="text"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
+      </div>
+      <div>
+        Respon: <b>{respon.answer || ""}</b>
+      </div>
+      <div>scope: {respon.score}</div>
+      <pre>{JSON.stringify(respon, null, 2)}</pre>
     </div>
   );
 }
-
-export default App;
